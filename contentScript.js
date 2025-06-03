@@ -1,5 +1,6 @@
 import { getTime } from "./utils.js";
 (() => {
+    
     let youtubeLeftControls, youtubePlayer; //access youtube player and youtube controls
     let currentVideo = "";
     let currentVideoBookmarks = [];
@@ -11,6 +12,8 @@ import { getTime } from "./utils.js";
         if (type === "NEW") {
             currentVideo = videoId;
             newVideoLoaded(); //handle any actions with new video
+        } else if (type === "PLAY") {
+            youtubePlayer.currentTime = value;
         }
     });
 
