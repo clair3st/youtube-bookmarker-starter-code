@@ -20,7 +20,7 @@ const addNewBookmark = (bookmarksElememt, bookmark) => {
 
     newBookmarkElement.appendChild(bookmarkTitleElement);
     newBookmarkElement.appendChild(controlsElement);
-    bookmarksElement.appendChild(newBookmarkElement);
+    bookmarks.appendChild(newBookmarkElement);
     
 };
 
@@ -49,8 +49,8 @@ const onPlay = async e => {
 };
 
 const onDelete = async e => {
-    const bookmarkTime = e.target.parentNode.parentNode.getAttribute('timestamp');
     const activeTab = await getActiveTabURL();
+    const bookmarkTime = e.target.parentNode.parentNode.getAttribute('timestamp');
     const bookmarkElementToDelete = document.getElementByID('bookmark-' + bookmarkTime);
 
     bookmarkElementToDelete.parentNode.removeChild(bookmarkElementToDelete);
@@ -68,7 +68,7 @@ const setBookmarkAttributes =  (src, eventListener, controlParentElement) => {
     controlElement.src = "assets/" + src + ".png";
     controlElement.title = src;
     controlElement.addEventListener('click', eventListener);
-    controlParentElement.append(controlELement);
+    controlParentElement.append(controlElement);
 };
 
 //Native window event when content has loaded
