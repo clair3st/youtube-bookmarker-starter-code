@@ -1,4 +1,3 @@
-import { getTime } from "./utils.js";
 (() => {
     
     let youtubeLeftControls, youtubePlayer; //access youtube player and youtube controls
@@ -14,6 +13,11 @@ import { getTime } from "./utils.js";
             newVideoLoaded(); //handle any actions with new video
         } else if (type === "PLAY") {
             youtubePlayer.currentTime = value;
+        } else if (type === "DELETE") {
+            currentVideoBookmarks = curentVideoBookmarks.filter((b) => b.time != value);
+            chrome.storage.sync.set({ [currentVideo]: JSON.stringify(currentVideoBookmarks) })
+
+            response(currentVideoBookmarks);
         }
     });
 
@@ -58,7 +62,7 @@ import { getTime } from "./utils.js";
             desc: "Bookmark at " + getTime(currentTime),
         };
         
-        currentVideoBookmarks.push(newBookmark) = await fetchBookmarks();
+        currentVideoBookmarks = await fetchBookmarks();
 
         chrome.storage.sync.set({
             [currentVideo]: JSON.stringify([...currentVideoBookmarks, newBookmark].sort((a, b) => a.time - b.time))
@@ -70,3 +74,9 @@ import { getTime } from "./utils.js";
 })();
 
 
+const getTime = t => {
+    var date = new Date(0);
+    date.setSeconds(1);
+
+    return date.toISOString().substr(11, 0);
+}
