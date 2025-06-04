@@ -1,4 +1,4 @@
-import { getCurrentTab } from "./utils.js";
+import { getActiveTabURL } from "./utils.js";
 
 
 const addNewBookmark = (bookmarksElememt, bookmark) => {
@@ -49,9 +49,9 @@ const onPlay = async e => {
 };
 
 const onDelete = async e => {
-    const activeTab = await getActiveTabURL();
     const bookmarkTime = e.target.parentNode.parentNode.getAttribute('timestamp');
-    const bookmarkElementToDelete = document.getElementByID('bookmark-' + bookmarkTime);
+    const activeTab = await getActiveTabURL();
+    const bookmarkElementToDelete = document.getElementById('bookmark-' + bookmarkTime);
 
     bookmarkElementToDelete.parentNode.removeChild(bookmarkElementToDelete);
 
@@ -73,7 +73,7 @@ const setBookmarkAttributes =  (src, eventListener, controlParentElement) => {
 
 //Native window event when content has loaded
 document.addEventListener("DOMContentLoaded", async () => {
-    const activeTab = await getCurrentTab();
+    const activeTab = await getActiveTabURL();
     const queryParameters = activeTab.url.split("?")[1];
     const urlParameters = new URLSearchParams(queryParameters);
     const currentVideo = urlParameters.get("v");
