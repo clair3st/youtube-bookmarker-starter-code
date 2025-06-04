@@ -24,6 +24,7 @@
     //fetch bookmarks from chrome storage asynchronously
     const fetchBookmarks = () => {
         return new Promise((resolve) => {
+            console.log('fetchBookmarks')
             chrome.storage.sync.get([currentVideo], (obj) => {
                 resolve(obj[currentVideo] ? JSON.parse(obj[currentVideo]) : []);
             });
@@ -76,7 +77,7 @@
 
 const getTime = t => {
     var date = new Date(0);
-    date.setSeconds(1);
-
-    return date.toISOString().substr(11, 0);
-}
+    date.setSeconds(t);
+  
+    return date.toISOString().substring(11, 19);
+  }
